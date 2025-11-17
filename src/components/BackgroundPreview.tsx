@@ -48,13 +48,11 @@ export const BackgroundPreview = ({
           let overlayX = 0, overlayY = 0, overlayWidth = 0, overlayHeight = 0;
           let textX = 60, textStartY = 0;
           let qrX = 0, qrY = 0;
-          let centerAlign = false;
 
           const textHeight = 250;
           const textWidth = 600;
           const qrSize = 200;
           const padding = 60;
-          const centerX = canvas.width / 2;
 
           switch (position) {
             case "bottom":
@@ -62,22 +60,20 @@ export const BackgroundPreview = ({
               overlayY = canvas.height - textHeight;
               overlayWidth = canvas.width;
               overlayHeight = textHeight;
-              textX = centerX;
+              textX = padding;
               textStartY = canvas.height - 180;
-              qrX = centerX - 90;
-              qrY = canvas.height - 240;
-              centerAlign = true;
+              qrX = canvas.width - qrSize - 40;
+              qrY = canvas.height - qrSize - 40;
               break;
             case "top":
               overlayX = 0;
               overlayY = 0;
               overlayWidth = canvas.width;
               overlayHeight = textHeight;
-              textX = centerX;
-              textStartY = 80;
-              qrX = centerX - 90;
-              qrY = 20;
-              centerAlign = true;
+              textX = padding;
+              textStartY = 68;
+              qrX = canvas.width - qrSize - 40;
+              qrY = 40;
               break;
             case "left":
               overlayX = 0;
@@ -88,7 +84,6 @@ export const BackgroundPreview = ({
               textStartY = canvas.height / 2 - 80;
               qrX = padding;
               qrY = canvas.height / 2 + 100;
-              centerAlign = false;
               break;
             case "right":
               overlayX = canvas.width - textWidth;
@@ -99,16 +94,12 @@ export const BackgroundPreview = ({
               textStartY = canvas.height / 2 - 80;
               qrX = canvas.width - qrSize - padding;
               qrY = canvas.height / 2 + 100;
-              centerAlign = false;
               break;
           }
 
           // Add semi-transparent overlay for text visibility
           ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
           ctx.fillRect(overlayX, overlayY, overlayWidth, overlayHeight);
-
-          // Set text alignment based on position
-          ctx.textAlign = centerAlign ? "center" : "left";
 
           // Draw user info text
           ctx.fillStyle = "#FFFFFF";
