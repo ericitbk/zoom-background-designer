@@ -4,15 +4,19 @@ import { UserInfo } from "./UserInfoForm";
 import { backgrounds } from "./BackgroundSelector";
 import { Card } from "@/components/ui/card";
 
+export type Position = "top" | "bottom" | "left" | "right";
+
 interface BackgroundPreviewProps {
   userInfo: UserInfo;
   selectedBackground: string;
+  position: Position;
   onCanvasReady: (canvas: HTMLCanvasElement) => void;
 }
 
 export const BackgroundPreview = ({ 
   userInfo, 
   selectedBackground,
+  position,
   onCanvasReady 
 }: BackgroundPreviewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,22 +44,75 @@ export const BackgroundPreview = ({
         img.onload = async () => {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
+          // Calculate positions based on selected position
+          let overlayX = 0, overlayY = 0, overlayWidth = 0, overlayHeight = 0;
+          let textX = 60, textStartY = 0;
+          let qrX = 0, qrY = 0;
+
+          const textHeight = 250;
+          const textWidth = 600;
+          const qrSize = 200;
+          const padding = 60;
+
+          switch (position) {
+            case "bottom":
+              overlayX = 0;
+              overlayY = canvas.height - textHeight;
+              overlayWidth = canvas.width;
+              overlayHeight = textHeight;
+              textX = padding;
+              textStartY = canvas.height - 180;
+              qrX = canvas.width - qrSize - 40;
+              qrY = canvas.height - qrSize - 40;
+              break;
+            case "top":
+              overlayX = 0;
+              overlayY = 0;
+              overlayWidth = canvas.width;
+              overlayHeight = textHeight;
+              textX = padding;
+              textStartY = 68;
+              qrX = canvas.width - qrSize - 40;
+              qrY = 40;
+              break;
+            case "left":
+              overlayX = 0;
+              overlayY = 0;
+              overlayWidth = textWidth;
+              overlayHeight = canvas.height;
+              textX = padding;
+              textStartY = canvas.height / 2 - 80;
+              qrX = padding;
+              qrY = canvas.height / 2 + 100;
+              break;
+            case "right":
+              overlayX = canvas.width - textWidth;
+              overlayY = 0;
+              overlayWidth = textWidth;
+              overlayHeight = canvas.height;
+              textX = canvas.width - textWidth + padding;
+              textStartY = canvas.height / 2 - 80;
+              qrX = canvas.width - qrSize - padding;
+              qrY = canvas.height / 2 + 100;
+              break;
+          }
+
           // Add semi-transparent overlay for text visibility
           ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-          ctx.fillRect(0, canvas.height - 250, canvas.width, 250);
+          ctx.fillRect(overlayX, overlayY, overlayWidth, overlayHeight);
 
           // Draw user info text
           ctx.fillStyle = "#FFFFFF";
           ctx.font = "bold 48px Arial";
-          ctx.fillText(userInfo.name || "Your Name", 60, canvas.height - 180);
+          ctx.fillText(userInfo.name || "Your Name", textX, textStartY);
 
           ctx.font = "32px Arial";
-          ctx.fillText(userInfo.position || "Your Position", 60, canvas.height - 130);
+          ctx.fillText(userInfo.position || "Your Position", textX, textStartY + 50);
 
           ctx.font = "28px Arial";
           ctx.fillStyle = "#E0E0E0";
-          ctx.fillText(userInfo.role || "Your Role", 60, canvas.height - 85);
-          ctx.fillText(userInfo.division || "Your Division", 60, canvas.height - 45);
+          ctx.fillText(userInfo.role || "Your Role", textX, textStartY + 95);
+          ctx.fillText(userInfo.division || "Your Division", textX, textStartY + 135);
 
           // Generate and draw QR code if LinkedIn URL is provided
           if (userInfo.linkedinUrl) {
@@ -73,9 +130,9 @@ export const BackgroundPreview = ({
               qrImg.onload = () => {
                 // Draw white background for QR code
                 ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(canvas.width - 240, canvas.height - 240, 200, 200);
+                ctx.fillRect(qrX - 10, qrY - 10, qrSize, qrSize);
                 // Draw QR code
-                ctx.drawImage(qrImg, canvas.width - 230, canvas.height - 230, 180, 180);
+                ctx.drawImage(qrImg, qrX, qrY, 180, 180);
                 
                 onCanvasReady(canvas);
               };
@@ -93,7 +150,7 @@ export const BackgroundPreview = ({
     };
 
     drawBackground();
-  }, [userInfo, selectedBackground, onCanvasReady]);
+  }, [userInfo, selectedBackground, position, onCanvasReady]);
 
   return (
     <Card className="p-4 bg-card shadow-medium">

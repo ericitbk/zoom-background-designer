@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
 import { BackgroundSelector } from "@/components/BackgroundSelector";
 import { UserInfoForm, UserInfo } from "@/components/UserInfoForm";
-import { BackgroundPreview } from "@/components/BackgroundPreview";
+import { BackgroundPreview, Position } from "@/components/BackgroundPreview";
+import { PositionSelector } from "@/components/PositionSelector";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Download } from "lucide-react";
@@ -9,6 +10,7 @@ import { toast } from "sonner";
 
 const Index = () => {
   const [selectedBackground, setSelectedBackground] = useState("tech-blue");
+  const [position, setPosition] = useState<Position>("bottom");
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: "",
     position: "",
@@ -75,6 +77,10 @@ const Index = () => {
             </Card>
 
             <Card className="p-6 bg-card shadow-soft">
+              <PositionSelector selected={position} onSelect={setPosition} />
+            </Card>
+
+            <Card className="p-6 bg-card shadow-soft">
               <UserInfoForm data={userInfo} onChange={handleUserInfoChange} />
             </Card>
 
@@ -93,6 +99,7 @@ const Index = () => {
             <BackgroundPreview
               userInfo={userInfo}
               selectedBackground={selectedBackground}
+              position={position}
               onCanvasReady={handleCanvasReady}
             />
           </div>
