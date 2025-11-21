@@ -4,12 +4,16 @@ import { UserInfoForm, UserInfo } from "@/components/UserInfoForm";
 import { BackgroundPreview, Position } from "@/components/BackgroundPreview";
 import { PositionSelector } from "@/components/PositionSelector";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Download, ArrowRight, ArrowLeft } from "lucide-react";
+import { Download } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const Index = () => {
-  const [step, setStep] = useState(1);
   const [selectedBackground, setSelectedBackground] = useState("tech-blue");
   const [position, setPosition] = useState<Position>("bottom");
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -21,8 +25,6 @@ const Index = () => {
   });
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
 
-  const totalSteps = 4;
-
   const handleUserInfoChange = (field: keyof UserInfo, value: string) => {
     setUserInfo((prev) => ({ ...prev, [field]: value }));
   };
@@ -31,21 +33,14 @@ const Index = () => {
     setCanvas(canvas);
   }, []);
 
-  const handleNext = () => {
-    if (step === 3 && (!userInfo.name || !userInfo.position)) {
-      toast.error("Please fill in at least your name and position");
-      return;
-    }
-    if (step < totalSteps) setStep(step + 1);
-  };
-
-  const handlePrevious = () => {
-    if (step > 1) setStep(step - 1);
-  };
-
   const handleDownload = () => {
     if (!canvas) {
       toast.error("Please wait for the preview to load");
+      return;
+    }
+
+    if (!userInfo.name || !userInfo.position) {
+      toast.error("Please fill in at least your name and position");
       return;
     }
 
@@ -64,124 +59,83 @@ const Index = () => {
     }, "image/png");
   };
 
-  const getStepTitle = () => {
-    switch (step) {
-      case 1:
-        return "Select Background";
-      case 2:
-        return "Choose Position";
-      case 3:
-        return "Enter Your Information";
-      case 4:
-        return "Preview & Download";
-      default:
-        return "";
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-accent flex items-center justify-center py-8 px-4">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Zoom Background Generator
-          </h1>
-          <p className="text-muted-foreground">
-            Create professional Zoom backgrounds with your information and QR code
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-accent flex flex-col">
+      {/* Header */}
+      <header className="bg-card border-b border-border py-4 px-6 shadow-sm">
+        <h1 className="text-2xl font-bold text-foreground">
+          Zoom Background Generator
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Customize your professional Zoom background in real-time
+        </p>
+      </header>
 
-        {/* Step Indicator */}
-        <div className="flex justify-center items-center mb-6">
-          {[1, 2, 3, 4].map((s) => (
-            <div key={s} className="flex items-center">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
-                  s === step
-                    ? "bg-primary text-primary-foreground"
-                    : s < step
-                    ? "bg-primary/60 text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
-                }`}
-              >
-                {s}
-              </div>
-              {s < 4 && (
-                <div
-                  className={`w-12 h-1 mx-2 ${
-                    s < step ? "bg-primary/60" : "bg-muted"
-                  }`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Left Sidebar - Controls */}
+        <aside className="w-80 bg-card border-r border-border overflow-y-auto">
+          <div className="p-4 space-y-4">
+            <Accordion type="multiple" defaultValue={["background", "position", "info"]} className="space-y-2">
+              <AccordionItem value="background" className="border border-border rounded-lg px-4 bg-background/50">
+                <AccordionTrigger className="text-sm font-semibold hover:no-underline">
+                  Select Background
+                </AccordionTrigger>
+                <AccordionContent>
+                  <BackgroundSelector
+                    selected={selectedBackground}
+                    onSelect={setSelectedBackground}
+                  />
+                </AccordionContent>
+              </AccordionItem>
 
-        <Card className="p-6 bg-card shadow-soft">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
-            {getStepTitle()}
-          </h2>
+              <AccordionItem value="position" className="border border-border rounded-lg px-4 bg-background/50">
+                <AccordionTrigger className="text-sm font-semibold hover:no-underline">
+                  Info Position
+                </AccordionTrigger>
+                <AccordionContent>
+                  <PositionSelector selected={position} onSelect={setPosition} />
+                </AccordionContent>
+              </AccordionItem>
 
-          {/* Step Content */}
-          <div className="min-h-[300px]">
-            {step === 1 && (
-              <BackgroundSelector
-                selected={selectedBackground}
-                onSelect={setSelectedBackground}
-              />
-            )}
+              <AccordionItem value="info" className="border border-border rounded-lg px-4 bg-background/50">
+                <AccordionTrigger className="text-sm font-semibold hover:no-underline">
+                  Your Information
+                </AccordionTrigger>
+                <AccordionContent>
+                  <UserInfoForm data={userInfo} onChange={handleUserInfoChange} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
-            {step === 2 && (
-              <PositionSelector selected={position} onSelect={setPosition} />
-            )}
-
-            {step === 3 && (
-              <UserInfoForm data={userInfo} onChange={handleUserInfoChange} />
-            )}
-
-            {step === 4 && (
-              <div className="space-y-4">
-                <BackgroundPreview
-                  userInfo={userInfo}
-                  selectedBackground={selectedBackground}
-                  position={position}
-                  onCanvasReady={handleCanvasReady}
-                />
-                <Button
-                  onClick={handleDownload}
-                  className="w-full h-12 text-lg font-semibold bg-gradient-primary hover:opacity-90 transition-opacity"
-                  size="lg"
-                >
-                  <Download className="mr-2 h-5 w-5" />
-                  Download Background
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-6">
             <Button
-              onClick={handlePrevious}
-              disabled={step === 1}
-              variant="outline"
-              className="w-32"
+              onClick={handleDownload}
+              className="w-full h-11 text-base font-semibold bg-gradient-primary hover:opacity-90 transition-opacity"
+              size="lg"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Previous
+              <Download className="mr-2 h-5 w-5" />
+              Download Background
             </Button>
-
-            {step < totalSteps && (
-              <Button
-                onClick={handleNext}
-                className="w-32 bg-gradient-primary hover:opacity-90 transition-opacity"
-              >
-                Next
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            )}
           </div>
-        </Card>
+        </aside>
+
+        {/* Right Panel - Live Preview */}
+        <main className="flex-1 p-6 overflow-auto bg-background/30">
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold text-foreground">Live Preview</h2>
+              <p className="text-sm text-muted-foreground">
+                Your background updates automatically as you make changes
+              </p>
+            </div>
+            <BackgroundPreview
+              userInfo={userInfo}
+              selectedBackground={selectedBackground}
+              position={position}
+              onCanvasReady={handleCanvasReady}
+            />
+          </div>
+        </main>
       </div>
     </div>
   );
