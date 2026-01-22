@@ -59,7 +59,7 @@ export const BackgroundPreview = ({
           b = Math.round(b / pixels);
           const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
           if (luminance > 170) {
-            setOverlayColor(`rgba(${Math.round(r * 0.25)}, ${Math.round(g * 0.25)}, ${Math.round(b * 0.25)}, 0.55)`);
+            setOverlayColor(`rgba(${Math.round(r * 0.25)}, ${Math.round(g * 0.25)}, ${Math.round(b * 0.25)}, 0.3)`);
             setTextColor("#FFFFFF");
             setSecondaryTextColor("#FFFFFF");
             setTextShadowColor("rgba(0, 0, 0, 0.55)");
