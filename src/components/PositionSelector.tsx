@@ -17,9 +17,9 @@ export const PositionSelector = ({ selected, onSelect }: PositionSelectorProps) 
 
   return (
     <div className="space-y-3">
-      <Label className="text-base font-semibold text-foreground">
+      {/* <Label className="text-base font-semibold text-foreground">
         Info Position
-      </Label>
+      </Label> */}
       <RadioGroup value={selected} onValueChange={(value) => onSelect(value as Position)}>
         <div className="grid grid-cols-2 gap-3">
           {positions.map((pos) => (

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 export interface UserInfo {
   name: string;
   position: string;
-  role: string;
+  quote: string;
   division: string;
   linkedinUrl: string;
 }
@@ -17,10 +17,10 @@ interface UserInfoFormProps {
 export const UserInfoForm = ({ data, onChange }: UserInfoFormProps) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Your Information</h3>
+      {/* <h3 className="text-lg font-semibold text-foreground">Your Information</h3> */}
       
       <div className="space-y-2">
-        <Label htmlFor="name">Full Name</Label>
+        <Label htmlFor="name">Nickname / Full Name</Label>
         <Input
           id="name"
           value={data.name}
@@ -42,18 +42,7 @@ export const UserInfoForm = ({ data, onChange }: UserInfoFormProps) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="role">Role</Label>
-        <Input
-          id="role"
-          value={data.role}
-          onChange={(e) => onChange("role", e.target.value)}
-          placeholder="Product Development"
-          className="bg-card"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="division">Division</Label>
+        <Label htmlFor="division">Division / Team</Label>
         <Input
           id="division"
           value={data.division}
@@ -64,7 +53,18 @@ export const UserInfoForm = ({ data, onChange }: UserInfoFormProps) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="linkedin">LinkedIn URL</Label>
+        <Label htmlFor="quote">Quote / Phrase</Label>
+        <Input
+          id="quote"
+          value={data.quote}
+          onChange={(e) => onChange("quote", e.target.value)}
+          placeholder="Make it meaningful"
+          className="bg-card"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="linkedin">LinkedIn/Notion URL</Label>
         <Input
           id="linkedin"
           value={data.linkedinUrl}
