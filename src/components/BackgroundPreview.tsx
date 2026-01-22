@@ -221,7 +221,7 @@ export const BackgroundPreview = ({
             renderLines.push({ text: userInfo.division, size: detailSize, weight: "normal", color: secondaryTextColor, italic: false });
           }
           if (userInfo.quote) {
-            renderLines.push({ text: `"${userInfo.quote}"`, size: detailSize, weight: "normal", color: secondaryTextColor, italic: true });
+            renderLines.push({ text: `"...${userInfo.quote}"`, size: detailSize, weight: "normal", color: secondaryTextColor, italic: true });
           }
 
           const textBlockHeight = renderLines.reduce(
