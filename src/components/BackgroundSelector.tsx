@@ -3,6 +3,8 @@ import { Label } from "@/components/ui/label";
 import techBlue from "@/assets/mfv-virtual-background-3-01.png";
 import gradientPurple from "@/assets/mfv-virtual-background-3-02.png";
 import officeClean from "@/assets/mfv-virtual-background-3-04.png";
+import cloudBoxClean from "@/assets/mfv-virtual-background-3-05.png";
+
 
 interface BackgroundOption {
   id: string;
@@ -25,6 +27,11 @@ const backgrounds: BackgroundOption[] = [
     id: "office-clean",
     name: "Office Clean",
     image: officeClean,
+  },
+  {
+    id: "cloud-box-clean",
+    name: "Cloud Box Clean",
+    image: cloudBoxClean,
   },
 ];
 
