@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { BackgroundSelector } from "@/components/BackgroundSelector";
 import { UserInfoForm, UserInfo } from "@/components/UserInfoForm";
 import { BackgroundPreview, Position } from "@/components/BackgroundPreview";
@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/accordion";
 
 const Index = () => {
+  const storageKey = "mf-bg-user-info";
   const [selectedBackground, setSelectedBackground] = useState("tech-blue");
-  const [position, setPosition] = useState<Position>("bottom");
+  const [position, setPosition] = useState<Position>("top");
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: "",
     position: "",
@@ -24,6 +25,17 @@ const Index = () => {
     linkedinUrl: "",
   });
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(storageKey);
+    if (!stored) return;
+    try {
+      const parsed = JSON.parse(stored) as Partial<UserInfo>;
+      setUserInfo((prev) => ({ ...prev, ...parsed }));
+    } catch {
+      localStorage.removeItem(storageKey);
+    }
+  }, []);
 
   const handleUserInfoChange = (field: keyof UserInfo, value: string) => {
     setUserInfo((prev) => ({ ...prev, [field]: value }));
@@ -44,6 +56,7 @@ const Index = () => {
       return;
     }
 
+    localStorage.setItem(storageKey, JSON.stringify(userInfo));
     canvas.toBlob((blob) => {
       if (blob) {
         const url = URL.createObjectURL(blob);
@@ -60,7 +73,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-accent flex flex-col">
+    <div className="h-screen bg-gradient-accent flex flex-col">
       {/* Header */}
       <header className="bg-card border-b border-border py-4 px-6 shadow-sm">
         <h1 className="text-2xl font-bold text-foreground">
@@ -140,8 +153,10 @@ const Index = () => {
       <footer className="border-t border-border bg-card/70 px-6 py-3">
         <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
           {/* <span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-soft" aria-hidden="true" /> */}
-          <span className="inline-flex gap-1 items-center" >Made with <Heart className="h-3.5 w-3.5 fill-primary text-primary" aria-hidden="true" />
-          Rik</span>
+          <span className="inline-flex gap-1 items-center">
+            Made with <Heart className="h-3.5 w-3.5 heart-pulse" aria-hidden="true" />
+            <strong>Rik</strong>
+          </span>
           {/* <Heart className="h-3.5 w-3.5 fill-primary text-primary" aria-hidden="true" /> */}
         </div>
       </footer>

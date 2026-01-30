@@ -9,10 +9,10 @@ interface PositionSelectorProps {
 
 export const PositionSelector = ({ selected, onSelect }: PositionSelectorProps) => {
   const positions: { value: Position; label: string }[] = [
-    { value: "bottom", label: "Bottom" },
     { value: "top", label: "Top" },
-    { value: "left", label: "Left" },
     { value: "right", label: "Right" },
+    { value: "left", label: "Left" },
+    { value: "bottom", label: "Bottom" },
   ];
 
   return (
