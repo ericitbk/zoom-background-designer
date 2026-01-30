@@ -15,22 +15,22 @@ interface BackgroundOption {
 const backgrounds: BackgroundOption[] = [
   {
     id: "tech-blue",
-    name: "Tech Blue",
+    name: "BG 1",
     image: techBlue,
   },
   {
     id: "gradient-purple",
-    name: "Gradient Purple",
+    name: "BG 2",
     image: gradientPurple,
   },
   {
     id: "office-clean",
-    name: "Office Clean",
+    name: "BG 3",
     image: officeClean,
   },
   {
     id: "cloud-box-clean",
-    name: "Cloud Box Clean",
+    name: "BG 4",
     image: cloudBoxClean,
   },
 ];

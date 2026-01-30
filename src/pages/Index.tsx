@@ -4,7 +4,7 @@ import { UserInfoForm, UserInfo } from "@/components/UserInfoForm";
 import { BackgroundPreview, Position } from "@/components/BackgroundPreview";
 import { PositionSelector } from "@/components/PositionSelector";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, Heart } from "lucide-react";
 import { toast } from "sonner";
 import {
   Accordion,
@@ -122,12 +122,12 @@ const Index = () => {
         {/* Right Panel - Live Preview */}
         <main className="flex-1 p-6 overflow-auto bg-background/30">
           <div className="max-w-5xl mx-auto">
-            <div className="mb-3">
-              <h2 className="text-lg font-semibold text-foreground">Live Preview</h2>
-              <p className="text-sm text-muted-foreground">
+            {/* <div className="mb-3"> */}
+              {/* <h2 className="text-lg font-semibold text-foreground">Live Preview</h2> */}
+              {/* <p className="text-sm text-muted-foreground">
                 Your background updates automatically as you make changes
-              </p>
-            </div>
+              </p> */}
+            {/* </div> */}
             <BackgroundPreview
               userInfo={userInfo}
               selectedBackground={selectedBackground}
@@ -137,6 +137,14 @@ const Index = () => {
           </div>
         </main>
       </div>
+      <footer className="border-t border-border bg-card/70 px-6 py-3">
+        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+          {/* <span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-soft" aria-hidden="true" /> */}
+          <span className="inline-flex gap-1 items-center" >Made with <Heart className="h-3.5 w-3.5 fill-primary text-primary" aria-hidden="true" />
+          Rik</span>
+          {/* <Heart className="h-3.5 w-3.5 fill-primary text-primary" aria-hidden="true" /> */}
+        </div>
+      </footer>
     </div>
   );
 };
