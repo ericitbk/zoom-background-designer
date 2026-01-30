@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { UserInfo } from "./UserInfoForm";
-import { backgrounds } from "./BackgroundSelector";
+import { backgrounds } from "@/lib/backgrounds";
 import { Card } from "@/components/ui/card";
 
 export type Position = "top" | "bottom" | "left" | "right";
@@ -106,14 +106,13 @@ export const BackgroundPreview = ({
 
           // Calculate positions based on selected position
           let overlayX = 0, overlayY = 0, overlayWidth = 0, overlayHeight = 0;
-          let textX = 60, textStartY = 0;
+          let textX = 60;
           let qrX = 0, qrY = 0;
 
           const textHeight = 260;
           const textWidth = 520;
           const padding = 30;
           const sidePadding = 30;
-          const groupGap = 40;
 
           switch (position) {
             case "bottom":
