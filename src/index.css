@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 217 91% 60%;
+    --primary: 21 90% 48%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 217 91% 60%;
+    --accent: 21 90% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -34,15 +34,15 @@ All colors MUST be HSL.
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 217 91% 60%;
+    --ring: 21 90% 48%;
 
     --radius: 0.75rem;
     
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(230 91% 65%));
+    --gradient-primary: linear-gradient(135deg, hsl(21 90% 48%), hsl(25 90% 56%));
     --gradient-accent: linear-gradient(180deg, hsl(210 40% 98%), hsl(217 91% 98%));
     
-    --shadow-soft: 0 2px 8px hsl(217 91% 60% / 0.1);
-    --shadow-medium: 0 4px 16px hsl(217 91% 60% / 0.15);
+    --shadow-soft: 0 2px 8px hsl(21 90% 48% / 0.1);
+    --shadow-medium: 0 4px 16px hsl(21 90% 48% / 0.15);
 
     --sidebar-background: 0 0% 98%;
 
@@ -58,7 +58,7 @@ All colors MUST be HSL.
 
     --sidebar-border: 220 13% 91%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 21 90% 48%;
   }
 
   .dark {
@@ -71,7 +71,7 @@ All colors MUST be HSL.
     --popover: 222 47% 13%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
+    --primary: 21 90% 48%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 217 33% 18%;
@@ -80,7 +80,7 @@ All colors MUST be HSL.
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 217 91% 60%;
+    --accent: 21 90% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
@@ -88,9 +88,9 @@ All colors MUST be HSL.
 
     --border: 217 33% 18%;
     --input: 217 33% 18%;
-    --ring: 217 91% 60%;
+    --ring: 21 90% 48%;
     
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(230 91% 65%));
+    --gradient-primary: linear-gradient(135deg, hsl(21 90% 48%), hsl(25 90% 56%));
     --gradient-accent: linear-gradient(180deg, hsl(222 47% 11%), hsl(222 47% 15%));
     
     --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
@@ -98,12 +98,12 @@ All colors MUST be HSL.
     
     --sidebar-background: 240 6% 10%;
     --sidebar-foreground: 240 5% 96%;
-    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary: 21 90% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4% 16%;
     --sidebar-accent-foreground: 240 5% 96%;
     --sidebar-border: 240 4% 16%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 21 90% 48%;
   }
 }
 
@@ -114,5 +114,6 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 }
