@@ -19,7 +19,7 @@ const Index = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: "",
     position: "",
-    role: "",
+    quote: "",
     division: "",
     linkedinUrl: "",
   });

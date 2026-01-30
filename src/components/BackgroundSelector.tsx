@@ -1,5 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import techBlue from "@/assets/mfv-virtual-background-3-01.png";
+import gradientPurple from "@/assets/mfv-virtual-background-3-02.png";
+import officeClean from "@/assets/mfv-virtual-background-3-04.png";
 
 interface BackgroundOption {
   id: string;
@@ -11,22 +14,17 @@ const backgrounds: BackgroundOption[] = [
   {
     id: "tech-blue",
     name: "Tech Blue",
-    image: "https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop",
+    image: techBlue,
   },
   {
     id: "gradient-purple",
     name: "Gradient Purple",
-    image: "https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?w=1920&h=1080&fit=crop",
+    image: gradientPurple,
   },
   {
     id: "office-clean",
     name: "Office Clean",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
-  },
-  {
-    id: "modern-workspace",
-    name: "Modern Workspace",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1920&h=1080&fit=crop",
+    image: officeClean,
   },
 ];
 
@@ -38,8 +36,8 @@ interface BackgroundSelectorProps {
 export const BackgroundSelector = ({ selected, onSelect }: BackgroundSelectorProps) => {
   return (
     <div className="space-y-3">
-      <Label className="text-sm font-semibold">Select Background</Label>
-      <div className="grid grid-cols-2 gap-3">
+      {/* <Label className="text-sm font-semibold">Select Background</Label> */}
+      <div className="grid grid-cols-2 gap-1.5 p-1.5">
         {backgrounds.map((bg) => (
           <Card
             key={bg.id}
