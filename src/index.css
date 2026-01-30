@@ -117,3 +117,46 @@ All colors MUST be HSL.
     font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 }
+
+@keyframes heart-pulse {
+  0%,
+  100% {
+    color: hsl(var(--primary) / 0.35);
+    opacity: 0.45;
+  }
+  50% {
+    color: hsl(var(--primary));
+    opacity: 1;
+  }
+}
+
+.heart-pulse {
+  color: hsl(var(--primary));
+  fill: currentColor;
+  animation: heart-pulse 1.6s ease-in-out infinite;
+}
+
+* {
+  scrollbar-color: hsl(var(--primary) / 0.3) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary) / 0.3);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary) / 0.45);
+}
