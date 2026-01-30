@@ -64,10 +64,10 @@ const Index = () => {
       {/* Header */}
       <header className="bg-card border-b border-border py-4 px-6 shadow-sm">
         <h1 className="text-2xl font-bold text-foreground">
-          Zoom Background Generator
+          MF Virtual Background Generator
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Customize your professional Zoom background in real-time
+          Customize your professional MF Virtual Background in real-time
         </p>
       </header>
 
